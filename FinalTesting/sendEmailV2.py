@@ -266,6 +266,7 @@ def process_file3():
         showMessage ("Connection Error","Check your email address and Password Or Internet")
         print ("Fail to send email")
         print ("Check your email address and Password")
+        print (e)
         return ""
     except (socket.gaierror) as e:
         showMessage("No Internet","Please Check that you are online")
@@ -283,6 +284,7 @@ def process_file3():
         return ""
     except (imaplib.IMAP4.error) as e:
         showMessage("Login Error!", "Login failed, Email Address or Password is Wrong")
+        print (e)
         return ""
    
     try: 
@@ -361,7 +363,7 @@ def readMail(USER,PASSWORD,numbDay):
     if "u.nus.edu" in USER:
         SERVER = "outlook.office365.com"
     else:
-        SERVER = "smtp.nus.edu.sg"
+        SERVER = "imap.nus.edu.sg"
 
     # connect to server
     mail = imaplib.IMAP4_SSL(SERVER)
@@ -387,12 +389,15 @@ def readMail(USER,PASSWORD,numbDay):
 def sendEmail(s):
     print('------------------------------')
     displayText=process_file1()
+    if not displayText:
+        showMessage ("Successful","All residents have been contacted")
+        quit()
     emailList =displayText.split(';')
-    print (emailAdd.get())
-    print (emailPass.get())
-    print (emailSub.get())
-    print (s.get("1.0",'end-1c'))
-      
+    # print (emailAdd.get())
+    # print (emailPass.get())
+    # print (emailSub.get())
+    # print (s.get("1.0",'end-1c'))
+    print(displayText)
     
     email = str(emailAdd.get())
     password=str(emailPass.get())
